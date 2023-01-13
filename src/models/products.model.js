@@ -7,6 +7,14 @@ const findAll = async () => {
   return result;
 };
 
+const findById = async (id) => {
+  const QUERY = 'SELECT * FROM StoreManager.products WHERE id = ?';
+  const [result] = await connection.execute(QUERY, [id]);
+
+  return result;
+};
+
 module.exports = {
   findAll,
+  findById,
 };
