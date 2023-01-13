@@ -13,6 +13,9 @@ const allProducts = [
   }
 ];
 
+const newProduct = { id: 30, name: 'ProdutoX' };
+
 module.exports = {
-  allProducts
+  allProducts,
+  newProduct,
 }
