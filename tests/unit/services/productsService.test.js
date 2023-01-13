@@ -46,7 +46,7 @@ describe('Testes de unidade do Service da lista de produtos', function () {
 
   it('Recuperando informacoes de um id que nao existe', async function () {
     //Triple A
-    const result = await productsService.findById(5);
+    const result = await productsService.findById(8);
 
       expect(result.type).to.deep.equal(PRODUCT_ID_ERROR);
       expect(result.message).to.deep.equal(PRODUCT_NOT_FOUND);
@@ -56,9 +56,10 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     //Triple A
     sinon.stub(productsModel, 'createProduct').resolves(newProduct);
 
-    const result = await productsService.createProduct("ProdutoX");
+    const { type, message } = await productsService.createProduct("ProdutoX")
 
-    expect(result.message).to.deep.equal(newProduct);
+    expect(type).to.be.equal(null);
+    expect(message).to.be.deep.equal(newProduct);
   });
   
   it('Cadastrando um produto com nome errado', async function () {
@@ -68,6 +69,7 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     expect(result.message).to.deep.equal(PRODUCT_NAME_ERROR);
     expect(result.type).to.be.deep.equal(PRODUCT_TYPE_NAME_ERROR);
   });
+
   afterEach(function () {
     sinon.restore();
   });
