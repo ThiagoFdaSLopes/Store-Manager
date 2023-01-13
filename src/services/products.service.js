@@ -1,5 +1,5 @@
 const { productsModel } = require('../models');
-const { validateId } = require('./validations/inputValidations');
+const { validateId, validateName } = require('./validations/inputValidations');
 
 const findAll = async () => {
   const products = await productsModel.findAll();
@@ -15,7 +15,17 @@ const findById = async (idProduct) => {
   return { type: 'Product id error', message: 'Product not found' };
 };
 
+const createProduct = async (productName) => {
+  const error = validateName(productName);
+  if (error.type) return error;
+
+  const newProduct = await productsModel.createProduct(productName);
+  if (newProduct) return { type: null, message: newProduct };
+  return { type: 'Invalid Name', message: '"name" length must be at least 5 characters long' };
+};
+
 module.exports = {
   findAll,
   findById,
+  createProduct,
 };
