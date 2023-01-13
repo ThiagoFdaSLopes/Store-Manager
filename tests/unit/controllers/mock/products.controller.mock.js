@@ -13,6 +13,17 @@ const productList = [
   }
 ];
 
+const bodyNameMock = {
+ name: "ProdutoX"
+};
+
+const newProductMock = { id: 30, ...bodyNameMock };
+
+const INCORRECT_NAME = { name: 'Test' };
+
 module.exports = {
   productList,
+  newProductMock,
+  bodyNameMock,
+  INCORRECT_NAME,
 };
