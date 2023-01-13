@@ -11,9 +11,12 @@ const {
   MESSAGE_ERROR,
   TYPE_MESSAGE,
   PRODUCT_NOT_FOUND,
-  PRODUCT_ID_ERROR } = require('./mocks/products.service.mock')
+  PRODUCT_ID_ERROR,
+  newProduct,
+  PRODUCT_NAME_ERROR,
+  PRODUCT_TYPE_NAME_ERROR } = require('./mocks/products.service.mock')
 
-describe('Testes de unidade do Service de pessoas passageiras', function () {
+describe('Testes de unidade do Service da lista de produtos', function () {
 
   it('Recuperando lista de produtos', async function () {
     //Triple A
@@ -48,7 +51,23 @@ describe('Testes de unidade do Service de pessoas passageiras', function () {
       expect(result.type).to.deep.equal(PRODUCT_ID_ERROR);
       expect(result.message).to.deep.equal(PRODUCT_NOT_FOUND);
   });
+
+  it('Cadastrando um novo produto', async function () {
+    //Triple A
+    sinon.stub(productsModel, 'createProduct').resolves(newProduct);
+
+    const result = await productsService.createProduct("ProdutoX");
+
+    expect(result.message).to.deep.equal(newProduct);
+  });
   
+  it('Cadastrando um produto com nome errado', async function () {
+    //Triple A
+    const result = await productsService.createProduct("test");
+
+    expect(result.message).to.deep.equal(PRODUCT_NAME_ERROR);
+    expect(result.type).to.be.deep.equal(PRODUCT_TYPE_NAME_ERROR);
+  });
   afterEach(function () {
     sinon.restore();
   });
