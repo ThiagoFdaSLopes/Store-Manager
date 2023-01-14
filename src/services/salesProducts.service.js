@@ -1,4 +1,4 @@
-const { salesProducts, sales, productsModel } = require('../models');
+const { salesProductsModel, sales, productsModel } = require('../models');
 
 const getAllIdsExist = async (productList) => {
   const existInDb = await Promise.all(
@@ -19,13 +19,30 @@ const createNewProductsSale = async (productList) => {
   const go = exist.every((item) => item === true);
 
   if (go) {
-    const newSalesProducts = await salesProducts.newSaleProduct(productList);
+    const newSalesProducts = await salesProductsModel.newSaleProduct(productList);
     if (newSalesProducts) return { type: null, message: newSalesProducts };
   }
   return { type: 'NOT_FOUND', message: 'Product not found' };
 };
 
+const findAllSales = async () => {
+  const allSales = await salesProductsModel.findAllSales();
+
+  return { type: null, message: allSales };
+};
+
+const findById = async (id) => {
+  const allSales = await salesProductsModel.findById(id);
+
+  if (allSales.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+
+  return { type: null, message: allSales };
+};
+
 module.exports = {
   createNewProductsSale,
   getAllIdsExist,
+  findAllSales,
+  findById,
+  
 };
