@@ -20,10 +20,12 @@ const bodyNameMock = {
 const newProductMock = { id: 30, ...bodyNameMock };
 
 const INCORRECT_NAME = { name: 'Test' };
+const correctName = { name: "Batman Boneco Marvel" };
 
 module.exports = {
   productList,
   newProductMock,
+  correctName,
   bodyNameMock,
   INCORRECT_NAME,
 };

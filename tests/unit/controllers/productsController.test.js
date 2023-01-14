@@ -97,6 +97,54 @@ describe('Teste de unidade do productsController', function () {
     expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long'});
   });
 
+  it('Criando com nome incorreto', async function () {
+    const res = {};
+    const req = { body: INCORRECT_NAME, params: { id: 1 }};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'updateProductName')
+      .resolves({ type: 'INVALID_NAME', message: '"name" length must be at least 5 characters long' });
+
+    await productsController.updateProductName(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long'});
+  });
+
+  it('Criando um novo produto', async function () {
+    const res = {};
+    const req = { body: bodyNameMock, params: { id: 30 }};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'updateProductName')
+      .resolves({ type: null, message: newProductMock});
+
+    await productsController.updateProductName(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(newProductMock);
+  });
+
+  it('Atualizando um produto com id errado', async function () {
+    const res = {};
+    const req = { body: bodyNameMock, params: { id: 154 }};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'updateProductName')
+      .resolves({ type: 'INVALID_PRODUCT', message: 'Product not found' });
+
+    await productsController.updateProductName(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({message: 'Product not found'});
+  });
+
 
   // { type: 'INVALID_NAME', message: '"name" length must be at least 5 characters long' };
   
