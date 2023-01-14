@@ -36,11 +36,11 @@ describe('Testes de unidade do model de sales e salesProducts', function () {
   });
 
   it('teste getSales por id', async function () {
-    sinon.stub(connection, 'execute').resolves([[getSalesId]])
+    sinon.stub(connection, 'execute').resolves([getSalesId])
 
     const result = await salesProductsModel.findById(1);
 
-    expect(result).to.be.deep.equal([getSalesId]);
+    expect(result).to.be.deep.equal(getSalesId);
   });
 
 });

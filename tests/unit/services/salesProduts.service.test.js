@@ -5,11 +5,11 @@ const { salesProductsModel } = require('../../../src/models');
 
 const { salesProductsService } = require('../../../src/services');
 
-const { returnSale, productList, incorrectSaleId } = require('./mocks/salesProduts.service.mock')
+const { returnSale, productList, getAllSales, getSalesId } = require('./mocks/salesProduts.service.mock')
 
 describe('Testes de unidade do Service da lista de produtos', function () {
 
-  it('Recuperando lista de produtos', async function () {
+  it('Criando novas vendas', async function () {
     //Triple A
     sinon.stub(salesProductsModel, 'newSaleProduct').resolves(returnSale);
 
@@ -25,6 +25,24 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     
   //   expect(result.message).to.be.deep.equal(result.message)
   // });
+
+  it('Pegando todas vendas vendas', async function () {
+    //Triple A
+    sinon.stub(salesProductsModel, 'findAllSales').resolves([getAllSales]);
+
+    const result = await salesProductsService.findAllSales();
+
+    expect(result.message).to.deep.equal([getAllSales]);
+  });
+
+  it('Pegando todas vendas por id', async function () {
+    //Triple A
+    sinon.stub(salesProductsModel, 'findById').resolves([getSalesId]);
+
+    const result = await salesProductsService.findById(1);
+
+    expect(result.message).to.deep.equal([getSalesId]);
+  });
 
   afterEach(function () {
     sinon.restore();

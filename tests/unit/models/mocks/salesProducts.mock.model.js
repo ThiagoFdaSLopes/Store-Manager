@@ -29,7 +29,7 @@ const getSalesId = [
     date: "2023-01-14T20:32:35.000Z",
     quantity: 10
   }
-]
+];
 
 
 module.exports = {
