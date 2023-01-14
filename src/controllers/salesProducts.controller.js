@@ -1,9 +1,11 @@
 const { salesProducts } = require('../services');
 
 const createNewSales = async (req, res) => {
-  const newSales = await salesProducts.createNewProductsSale(req.body);
+  const { type, message } = await salesProducts.createNewProductsSale(req.body);
 
-  return res.status(201).json(newSales.message);
+  if (type) return res.status(422).json({ message });
+
+  return res.status(201).json(message);
 };
 
 module.exports = {
