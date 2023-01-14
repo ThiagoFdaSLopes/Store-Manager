@@ -24,8 +24,21 @@ const createProduct = async (req, res) => {
   return res.status(201).json(message);
 };
 
+const updateProductName = async (req, res) => {
+  const { name } = req.body;
+  const { id } = req.params;
+  const { type, message } = await productsService.updateProductName(id, name);
+
+  if (type === 'INVALID_PRODUCT') return res.status(404).json({ message });
+
+  if (type) return res.status(422).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   findAll,
   findById,
   createProduct,
+  updateProductName,
 };
