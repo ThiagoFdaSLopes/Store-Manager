@@ -44,6 +44,24 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     expect(result.message).to.deep.equal([getSalesId]);
   });
 
+  it('Atualizando um produto com', async function () {
+    //Triple A
+    sinon.stub(salesProductsModel, 'deleteProductFromId').resolves({ affectedRows: 1});
+
+    const { type, message } = await salesProductsService.deleteProductFromId(1);
+
+    expect(type).to.be.equal(null);
+  });
+
+  it('Atualizando um produto com', async function () {
+    //Triple A
+      sinon.stub(salesProductsModel, 'deleteProductFromId').resolves({affectedRows: 0});
+
+    const { type, message } = await salesProductsService.deleteProductFromId(1);
+
+    expect(type).to.be.equal('INVALID_PRODUCT');
+  });
+
   afterEach(function () {
     sinon.restore();
   });
