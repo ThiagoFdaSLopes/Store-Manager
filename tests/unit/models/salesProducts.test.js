@@ -43,4 +43,12 @@ describe('Testes de unidade do model de sales e salesProducts', function () {
     expect(result).to.be.deep.equal(getSalesId);
   });
 
+  it('excluir um produto por id', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }])
+
+    const result = await salesProductsModel.deleteProductFromId(1)
+
+    expect(result).to.be.deep.equal({ affectedRows: 1});
+  });
+
 });
