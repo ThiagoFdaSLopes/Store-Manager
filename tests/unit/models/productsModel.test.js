@@ -45,5 +45,13 @@ describe('Testes de unidade do model de lista de produtos', function () {
     expect(result).to.be.deep.equal({ changedRows: 1, product: { id: 1, name: "Thiago Lopes"}});
   });
 
+  it('excluir um produto por id', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }])
+
+    const result = await productsModel.deleteProductFromId(1)
+
+    expect(result).to.be.deep.equal({ affectedRows: 1});
+  });
+
   afterEach(sinon.restore);
 });
