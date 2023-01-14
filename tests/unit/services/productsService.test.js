@@ -70,6 +70,35 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     expect(result.type).to.be.deep.equal(PRODUCT_TYPE_NAME_ERROR);
   });
 
+  it('Atualizando um produto com nome errado', async function () {
+    //Triple A
+    sinon.stub(productsModel, 'updateProductName').resolves({ type: 'INVALID_NAME', message: '"name" length must be at least 5 characters long' });
+
+    const { type, message } = await productsService.updateProductName(100, "Th");
+
+    expect(type).to.be.equal('INVALID_NAME');
+    expect(message).to.be.deep.equal('"name" length must be at least 5 characters long');
+  });
+
+  it('Atualizando um produto com', async function () {
+    //Triple A
+    sinon.stub(productsModel, 'updateProductName').resolves({ changedRows: 0});
+
+    const { type, message } = await productsService.updateProductName(1001, "Thiago Lopes");
+
+    expect(type).to.be.equal('INVALID_PRODUCT');
+    expect(message).to.be.deep.equal('Product not found');
+  });
+
+  it('Atualizando um produto com', async function () {
+    //Triple A
+    sinon.stub(productsModel, 'updateProductName').resolves({ changedRows: 1});
+
+    const { type, message } = await productsService.updateProductName(1, "Thiago Lopes");
+
+    expect(type).to.be.equal(null);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

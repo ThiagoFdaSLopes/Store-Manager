@@ -37,5 +37,13 @@ describe('Testes de unidade do model de lista de produtos', function () {
     expect(result).to.be.deep.equal(newProduct);
   });
 
+  it('teste getSales por id', async function () {
+    sinon.stub(connection, 'execute').resolves([{ changedRows: 1 }])
+
+    const result = await productsModel.updateProductName(1, "Thiago Lopes")
+
+    expect(result).to.be.deep.equal({ changedRows: 1, product: { id: 1, name: "Thiago Lopes"}});
+  });
+
   afterEach(sinon.restore);
 });
