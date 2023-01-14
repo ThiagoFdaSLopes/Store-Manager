@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const { salesProducts } = require('../../../src/models');
+const { salesProductsModel } = require('../../../src/models');
 
 const { salesProductsService } = require('../../../src/services');
 
@@ -11,7 +11,7 @@ describe('Testes de unidade do Service da lista de produtos', function () {
 
   it('Recuperando lista de produtos', async function () {
     //Triple A
-    sinon.stub(salesProducts, 'newSaleProduct').resolves(returnSale);
+    sinon.stub(salesProductsModel, 'newSaleProduct').resolves(returnSale);
 
     const result = await salesProductsService.createNewProductsSale(productList);
 
