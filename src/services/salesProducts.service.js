@@ -27,4 +27,5 @@ const createNewProductsSale = async (productList) => {
 
 module.exports = {
   createNewProductsSale,
+  getAllIdsExist,
 };
