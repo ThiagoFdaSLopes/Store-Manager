@@ -144,6 +144,36 @@ describe('Teste de unidade do productsController', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({message: 'Product not found'});
   });
+  it('Excluindo um produto com id errado', async function () {
+    const res = {};
+    const req = { params: { id: 100 }};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'deleteProductFromId')
+      .resolves({ type: 'INVALID_PRODUCT', message: 'Product not found' });
+
+    await productsController.deleteProductFromId(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({message: 'Product not found'});
+  });
+
+  it('Excluindo um produto com id errado', async function () {
+    const res = {};
+    const req = { params: { id: 1 }};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'deleteProductFromId')
+      .resolves({ type: null, message: '' });
+
+    await productsController.deleteProductFromId(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
 
 
   // { type: 'INVALID_NAME', message: '"name" length must be at least 5 characters long' };
