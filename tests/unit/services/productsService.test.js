@@ -99,6 +99,24 @@ describe('Testes de unidade do Service da lista de produtos', function () {
     expect(type).to.be.equal(null);
   });
 
+  it('Atualizando um produto com', async function () {
+    //Triple A
+    sinon.stub(productsModel, 'deleteProductFromId').resolves({ affectedRows: 1});
+
+    const { type, message } = await productsService.deleteProductFromId(1);
+
+    expect(type).to.be.equal(null);
+  });
+
+    it('Atualizando um produto com', async function () {
+    //Triple A
+      sinon.stub(productsModel, 'deleteProductFromId').resolves({affectedRows: 0});
+
+    const { type, message } = await productsService.deleteProductFromId(1);
+
+    expect(type).to.be.equal('INVALID_PRODUCT');
+  });
+
   afterEach(function () {
     sinon.restore();
   });
