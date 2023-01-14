@@ -1,7 +1,7 @@
-const { salesProducts } = require('../services');
+const { salesProductsService } = require('../services');
 
 const createNewSales = async (req, res) => {
-  const { type, message } = await salesProducts.createNewProductsSale(req.body);
+  const { type, message } = await salesProductsService.createNewProductsSale(req.body);
 
   if (type) return res.status(404).json({ message });
 
