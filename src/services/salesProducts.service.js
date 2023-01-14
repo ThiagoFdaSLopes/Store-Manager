@@ -13,13 +13,13 @@ const getAllIdsExist = async (productList) => {
 };
 
 const createNewProductsSale = async (productList) => {
-  const saleId = await sales.newSale();
+  await sales.newSale();
 
   const exist = await getAllIdsExist(productList);
   const go = exist.every((item) => item === true);
 
   if (go) {
-    const newSalesProducts = await salesProducts.newSaleProduct(saleId, productList);
+    const newSalesProducts = await salesProducts.newSaleProduct(productList);
     if (newSalesProducts) return { type: null, message: newSalesProducts };
   }
   return { type: 'NOT_FOUND', message: 'Product not found' };
