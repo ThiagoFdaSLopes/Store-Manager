@@ -47,10 +47,26 @@ const deleteProductFromId = async (id) => {
   return { type: null, message: '' };
 };
 
+const updateSales = async (id, productList) => {
+  const exist = await salesProductsModel.findSaleById(id);
+  const productidExist = await getAllIdsExist(productList);
+  const go = productidExist.every((item) => item === true);
+  if (exist.length === 0) {
+    return { type: 'INVALID_PRODUCT', message: 'Sale not found' };
+  }
+  if (!go) return { type: 'INVALID_PRODUCT', message: 'Product not found' };
+  
+  if (exist && go) {
+    const result = await salesProductsModel.updateSales(id, productList);
+    return { type: null, message: result };
+  }
+};
+
 module.exports = {
   createNewProductsSale,
   getAllIdsExist,
   findAllSales,
   findById,
   deleteProductFromId,
+  updateSales,
 };
