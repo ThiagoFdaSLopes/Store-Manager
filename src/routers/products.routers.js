@@ -10,6 +10,8 @@ router.post('/', validateName, productsController.createProduct);
 
 router.delete('/:id', productsController.deleteProductFromId);
 
+router.get('/search', productsController.searchProducts);
+
 router.get('/', productsController.findAll);
 
 router.get('/:id', productsController.findById);
