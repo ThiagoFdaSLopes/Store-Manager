@@ -4,7 +4,15 @@ const returnSale = {
   ]
 };
 
+const returnSalesUpdated = {
+  saleId: 2,
+  itemsUpdated: [
+    { productId: 1, quantity: 3 }
+  ]
+};
+
 const productList = [{ productId: 1, quantity: 3 }];
+const productListIncorrect = [{ productId: 1000, quantity: 3 }];
 
 const incorrectSaleId = { produtcId: 100, quantity: 3 };
 const incorrectSaleQuantity = { produtcId: 1 };
@@ -54,4 +62,6 @@ module.exports = {
   incorrectSaleQuantity,
   incorrectSaleQuantityNegative,
   incorrectSaleQuantityZero,
+  productListIncorrect,
+  returnSalesUpdated,
 }
