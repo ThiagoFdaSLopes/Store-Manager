@@ -9,6 +9,13 @@ const createResponseCorrect = {
   ]
 };
 
+const updateResponseCorrect = {
+  saleId: 1,
+  itemsUpdated: [
+    {productId:1,quantity:1}
+  ]
+};
+
 const getAllSales = [
   {
     date: "2023-01-14T20:27:26.000Z",
@@ -37,4 +44,5 @@ module.exports = {
   createResponseCorrect,
   getAllSales,
   getSalesId,
+  updateResponseCorrect,
 };

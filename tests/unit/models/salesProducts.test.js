@@ -4,7 +4,7 @@ const { sales, salesProductsModel } = require('../../../src/models')
 
 const connection = require('../../../src/models/db/connection');
 
-const { correctSales, createResponseCorrect, getAllSales, getSalesId } = require('./mocks/salesProducts.mock.model');
+const { updateResponseCorrect, correctSales, createResponseCorrect, getAllSales, getSalesId } = require('./mocks/salesProducts.mock.model');
 
 describe('Testes de unidade do model de sales e salesProducts', function () {
   afterEach(sinon.restore);
@@ -49,6 +49,22 @@ describe('Testes de unidade do model de sales e salesProducts', function () {
     const result = await salesProductsModel.deleteProductFromId(1)
 
     expect(result).to.be.deep.equal({ affectedRows: 1});
+  });
+
+  it('excluir um produto por id', async function () {
+    sinon.stub(connection, 'execute').resolves([updateResponseCorrect])
+
+    const result = await salesProductsModel.updateSales(1, correctSales)
+
+    expect(result).to.be.deep.equal(updateResponseCorrect);
+  });
+
+  it('excluir um produto por id', async function () {
+    sinon.stub(connection, 'execute').resolves([correctSales])
+
+    const result = await salesProductsModel.findSaleById(1)
+
+    expect(result).to.be.deep.equal(correctSales);
   });
 
 });
