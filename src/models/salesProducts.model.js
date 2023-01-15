@@ -44,6 +44,13 @@ const findById = async (id) => {
   return salesById;
 };
 
+const findSaleById = async (id) => {
+  const QUERY = 'SELECT * FROM sales_products WHERE sale_id = ?';
+  const [result] = await connection.execute(QUERY, [id]);
+
+  return result;
+};
+
 const deleteProductFromId = async (id) => {
   const QUERY = 'DELETE FROM StoreManager.sales_products WHERE sale_id = ?';
   const [result] = await connection.execute(QUERY, [id]);
@@ -51,9 +58,25 @@ const deleteProductFromId = async (id) => {
   return result;
 };
 
+const updateSales = async (id, productList) => {
+  const sale = await Promise.all(
+    productList.map(async (item) => {
+      await connection.execute(
+        'UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ? and product_id = ?',
+        [item.quantity, id, item.productId],
+      );
+      return item;
+    }),
+  );
+
+  return { saleId: Number(id), itemsUpdated: sale };
+};
+
 module.exports = {
   newSaleProduct,
   findAllSales,
   findById,
   deleteProductFromId,
+  updateSales,
+  findSaleById,
 };
